@@ -13,12 +13,6 @@ import { predictCrop } from '../services/api';
 import { demoPredict } from '../services/demo';
 import { createThumbnail, makeId, validateImage } from '../utils/image';
 
-const TIPS = [
-  { icon: Sun, text: 'Use good daylight – avoid dark shadows.' },
-  { icon: Focus, text: 'Keep the leaf in focus and fill the frame.' },
-  { icon: Leaf, text: 'Photograph one leaf at a time, showing the affected area.' },
-];
-
 export default function Diagnosis() {
   const navigate = useNavigate();
   const { demoMode, autoSave, addScan, setCurrentScan } = useApp();
@@ -109,10 +103,16 @@ export default function Diagnosis() {
 
   const analyzing = phase === 'analyzing';
 
+  const TIPS = [
+    { icon: Sun, text: t('diag.tip.light') },
+    { icon: Focus, text: t('diag.tip.focus') },
+    { icon: Leaf, text: t('diag.tip.leaf') },
+  ];
+
   return (
     <div>
       <PageHeader
-        eyebrow="Crop Diagnosis"
+        eyebrow={t('diag.eyebrow')}
         title={t('diag.title')}
         subtitle={t('diag.subtitle')}
         actions={demoMode ? <DemoTag /> : null}
@@ -134,20 +134,20 @@ export default function Diagnosis() {
               <button type="button" className="btn-primary w-full text-lg" onClick={analyze} disabled={!file}>
                 <ScanSearch size={22} aria-hidden="true" /> {t('diag.analyze')}
               </button>
-              {!file && <p className="text-center text-sm text-ink/60">Choose a photo first, then press “{t('diag.analyze')}”.</p>}
+              {!file && <p className="text-center text-sm text-ink/60">{t('diag.chooseFirst', { action: t('diag.analyze') })}</p>}
               {demoMode && (
                 <p className="text-center text-sm font-medium text-yellow-800">
-                  Demo Mode: you will see an illustrative sample, not a real AI prediction.
+                  {t('diag.demoNote')}
                 </p>
               )}
             </div>
           )}
         </div>
 
-        <aside className="space-y-4" aria-label="Photo tips">
+        <aside className="space-y-4" aria-label={t('diag.tipsTitle')}>
           <div className="card">
             <h2 className="flex items-center gap-2 font-display text-lg font-bold">
-              <Lightbulb size={20} className="text-gold" aria-hidden="true" /> Tips for a good photo
+              <Lightbulb size={20} className="text-gold" aria-hidden="true" /> {t('diag.tipsTitle')}
             </h2>
             <ul className="mt-3 space-y-3">
               {TIPS.map(({ icon: Icon, text }) => (
@@ -161,8 +161,7 @@ export default function Diagnosis() {
             </ul>
           </div>
           <div className="rounded-2xl border border-forest/10 bg-mint/70 p-5 text-sm text-ink/75">
-            Results are AI-assisted predictions and may be wrong. Please confirm with a local agriculture expert before
-            taking action.
+            {t('diag.disclaimer')}
           </div>
         </aside>
       </div>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Sans+Telugu:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -28,6 +30,33 @@
       transition-duration: 0.01ms !important;
     }
   }
+
+  /* ── RTL & Urdu font support ──────────────────────────────── */
+  html.lang-ur {
+    font-family: 'Noto Nastaliq Urdu', 'Noto Sans Arabic', serif;
+  }
+  html.lang-ur body {
+    line-height: 2;
+    font-size: 17px;
+  }
+  html.lang-ur h1, html.lang-ur h2, html.lang-ur h3, html.lang-ur h4 {
+    font-family: 'Noto Nastaliq Urdu', serif;
+    letter-spacing: 0;
+  }
+
+  /* Telugu font hints */
+  html[lang="te"] body {
+    font-family: 'Noto Sans Telugu', 'Inter', sans-serif;
+  }
+
+  /* Hindi/Devanagari font hints */
+  html[lang="hi"] body {
+    font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+  }
+
+  /* RTL direction helpers */
+  [dir="rtl"] .flex-row-reverse-rtl { flex-direction: row-reverse; }
+  [dir="rtl"] select { text-align: right; }
 }
 
 @layer components {

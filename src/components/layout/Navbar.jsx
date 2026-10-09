@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ArrowRight, LogIn, LogOut, ChevronDown, User } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Logo from './Logo';
+import LanguageSelector from './LanguageSelector';
 import { MAIN_NAV, SIDEBAR_NAV, EXTRA_NAV } from '../../data/navigation';
 import { useT } from '../../i18n';
 import { useAuth } from '../../context/AuthContext';
@@ -68,6 +69,7 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
+          <LanguageSelector />
           <Link to="/diagnosis" className="btn-primary btn-sm hidden sm:inline-flex">
             {t('nav.getStarted')} <ArrowRight size={16} aria-hidden="true" />
           </Link>
@@ -96,7 +98,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: -4 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 mt-2 w-64 overflow-hidden rounded-2xl border border-forest/10 bg-white shadow-lift"
+                    className="absolute end-0 mt-2 w-64 overflow-hidden rounded-2xl border border-forest/10 bg-white shadow-lift"
                   >
                     {/* User info */}
                     <div className="border-b border-forest/10 px-4 py-3">
@@ -110,14 +112,14 @@ export default function Navbar() {
                         onClick={() => setUserMenuOpen(false)}
                         className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-ink/75 transition hover:bg-mint hover:text-forest"
                       >
-                        <User size={16} /> My Profile
+                        <User size={16} /> {t('nav.myProfile')}
                       </Link>
                       <button
                         type="button"
                         onClick={handleLogout}
                         className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-red-600 transition hover:bg-red-50"
                       >
-                        <LogOut size={16} /> Sign out
+                        <LogOut size={16} /> {t('nav.logout')}
                       </button>
                     </div>
                   </motion.div>
@@ -129,7 +131,7 @@ export default function Navbar() {
               to="/login"
               className="hidden items-center gap-2 rounded-xl border border-forest/15 bg-white px-4 py-2 text-sm font-semibold text-forest transition hover:border-forest/30 hover:bg-mint lg:inline-flex"
             >
-              <LogIn size={16} /> Sign in
+              <LogIn size={16} /> {t('nav.login')}
             </Link>
           )}
 
@@ -194,6 +196,11 @@ export default function Navbar() {
               {t('hero.primary')}
             </Link>
 
+            {/* Mobile language selector */}
+            <div className="mt-4 border-t border-forest/10 pt-4">
+              <LanguageSelector mobile />
+            </div>
+
             {/* Mobile auth button */}
             {isAuthenticated ? (
               <button
@@ -201,11 +208,11 @@ export default function Navbar() {
                 onClick={handleLogout}
                 className="btn mt-2 w-full border border-red-200 text-base text-red-600 hover:bg-red-50"
               >
-                <LogOut size={18} /> Sign out
+                <LogOut size={18} /> {t('nav.logout')}
               </button>
             ) : (
               <Link to="/login" className="btn-secondary mt-2 w-full text-base">
-                <LogIn size={18} /> Sign in
+                <LogIn size={18} /> {t('nav.login')}
               </Link>
             )}
           </motion.div>
